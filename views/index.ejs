@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos del Sensor</title>
+  <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Tercio superior: datos actuales -->
+      <div class="col-md-12 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h3>Datos Actuales (Gandia Playa)</h3>
+            <h4>Medido con un sensor DHT11 y una placa Arduino Elegoo UNO R3</h4>
+          </div>
+          <div class="card-body">
+            <p><strong>Temperatura:</strong>
+              <%= latestRecord.temperature %> °C
+            </p>
+            <p><strong>Humedad:</strong>
+              <%= latestRecord.humidity %> %
+            </p>
+            <p><strong>Hora de Captura:</strong>
+              <%= new Date(latestRecord.timestamp * 1000).toISOString() %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Dos tercios inferiores: datos históricos -->
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>Datos Históricos</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Temperatura (°C)</th>
+                  <th>Humedad (%)</th>
+                  <th>Hora de Captura</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% records.forEach(record=> { %>
+                  <tr>
+                    <td>
+                      <%= record.temperature %>
+                    </td>
+                    <td>
+                      <%= record.humidity %>
+                    </td>
+                    <td>
+                      <%= new Date(record.timestamp * 1000).toISOString() %>
+                    </td>
+                  </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
